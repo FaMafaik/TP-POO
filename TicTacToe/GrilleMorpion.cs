@@ -16,7 +16,7 @@ namespace AppTicTacToe
         public bool CaseVide(int numLigne, int numColonne)
         {
            
-            if(grille[numLigne,numColonne] == 0)
+            if(grille[numColonne, numLigne] == 0)
             {
                 return true;
             } else {
@@ -28,16 +28,17 @@ namespace AppTicTacToe
         public bool GrilleComplete()
         {
             bool verif = false;
-            for (int i = 0; i < grille.GetLength(0); i++)
+            for (int i = 0; i <=2; i++)
             {
-                for(int j = 0; j < grille.GetLength(1); j++)
+                for(int j = 0; j <= 2; j++)
                 {
-                    if(grille[i, j] != 0) {
-                        Console.WriteLine(i + " -" + j);
-                        verif = true;
+                    Console.WriteLine(i + " -" + j + " = " + grille[j, i]);
+                    if (grille[i, j] == 0) {
+                       
+                        verif = false;
                     } else
                     {
-                        verif =  false;
+                        verif =  true;
                     }
                     
                 }

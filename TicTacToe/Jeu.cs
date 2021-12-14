@@ -79,20 +79,35 @@ namespace AppTicTacToe{
                 grille.AffichageGrille();
                 Console.WriteLine();
 
-          
 
+               
                 numLigne = SaisirLigneValide(numLigne)-1;
                 numColonne = SaisirColonneValide(numColonne)-1;
-                grille.deposeJeton(numLigne, numColonne, joueur);
-                Console.Clear();
 
+                if (grille.CaseVide(numLigne, numColonne))
+                {
+                    grille.deposeJeton(numLigne, numColonne, joueur);
+                    Console.Clear();
+
+                } else
+                {
+                    joueur = alterneJoueur(joueur);
+                    Console.Clear();
+                    Console.WriteLine("La case est déjà prise !");
+                }
+
+
+                
                 if (grille.VictoireJoueur(joueur) == true)
                 {
                     etatPartie = false;
 
-                } 
+                }
 
-            
+
+
+
+
 
 
             }

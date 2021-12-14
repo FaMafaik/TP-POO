@@ -27,23 +27,18 @@ namespace AppTicTacToe
 
         public bool GrilleComplete()
         {
-            bool verif = false;
-            for (int i = 0; i <=2; i++)
+            for(int i = 0; i < grille.GetLength(0); i++)
             {
-                for(int j = 0; j <= 2; j++)
+                for(int j = 0; j < grille.GetLength(1); j++)
                 {
-                    if (grille[i, j] == 0) {
-                       
-                        verif = false;
-                    } else
+                    if(CaseVide(i,j))
                     {
-                        verif =  true;
+                        return false;
                     }
-                    
                 }
             }
 
-            return verif;
+            return true;
         }
         
         public int deposeJeton(int numLigne, int numColonne, int numJoueur)

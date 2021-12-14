@@ -31,11 +31,11 @@ namespace AppTicTacToe{
             return num;
         }
 
-       
+
         public static int SaisirLigneValide( int numLigne)
         {
           
-                Console.Write("Veuillez saisir le numéro d'une ligne : ");
+                Console.Write("Veuillez saisir le numéro d'une ligne (1,2,3) : ");
                 numLigne = TestValiditeDuTypeDeLaSaisie();
                 Console.WriteLine();
             return numLigne;
@@ -44,7 +44,7 @@ namespace AppTicTacToe{
         public static int SaisirColonneValide(int numColonne)
         {
 
-            Console.Write("Veuillez saisir le numéro d'une colonne : ");
+            Console.Write("Veuillez saisir le numéro d'une colonne (1,2,3) : ");
             numColonne = TestValiditeDuTypeDeLaSaisie();
             Console.WriteLine();
             return numColonne;
@@ -89,10 +89,15 @@ namespace AppTicTacToe{
                 }
 
 
-                if (grille.VictoireJoueur(joueur) == true)
+                if (grille.VictoireJoueur(joueur))
                 {
                     etatPartie = false;
 
+                }
+
+                if(grille.GrilleComplete())
+                {
+                    etatPartie = false;
                 }
             }
 

@@ -37,10 +37,7 @@ namespace AppTicTacToe{
           
                 Console.Write("Veuillez saisir le numéro d'une ligne : ");
                 numLigne = TestValiditeDuTypeDeLaSaisie();
-             
                 Console.WriteLine();
-               
-
             return numLigne;
         }
 
@@ -49,10 +46,7 @@ namespace AppTicTacToe{
 
             Console.Write("Veuillez saisir le numéro d'une colonne : ");
             numColonne = TestValiditeDuTypeDeLaSaisie();
-
             Console.WriteLine();
-
-
             return numColonne;
         }
         
@@ -79,8 +73,6 @@ namespace AppTicTacToe{
                 grille.AffichageGrille();
                 Console.WriteLine();
 
-
-               
                 numLigne = SaisirLigneValide(numLigne)-1;
                 numColonne = SaisirColonneValide(numColonne)-1;
 
@@ -97,19 +89,11 @@ namespace AppTicTacToe{
                 }
 
 
-                
                 if (grille.VictoireJoueur(joueur) == true)
                 {
                     etatPartie = false;
 
                 }
-
-
-
-
-
-
-
             }
 
             if(grille.VictoireJoueur(joueur) == true)
@@ -121,7 +105,7 @@ namespace AppTicTacToe{
             {
                 grille.AffichageGrille();
                 Console.WriteLine();
-                Console.WriteLine("Personne à gagner " + joueur);
+                Console.WriteLine("Personne a gagné !");
             }
            
 

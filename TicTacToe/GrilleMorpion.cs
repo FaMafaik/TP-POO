@@ -32,7 +32,6 @@ namespace AppTicTacToe
             {
                 for(int j = 0; j <= 2; j++)
                 {
-                    Console.WriteLine(i + " -" + j + " = " + grille[j, i]);
                     if (grille[i, j] == 0) {
                        
                         verif = false;

@@ -31,104 +31,178 @@ namespace AppTicTacToe{
             return num;
         }
 
-        static bool TestDimensionSaisie(int num)
+        public static bool TestDimensionSaisie(int num, int[,] grille)
         {
-            if (num > 0 && num <=3 && num > 0 && num <=3) {
+            if (num > 0 && num <=grille.GetLength(0) && num > 0 && num <=grille.GetLength(1)) {
                 return true;
             }
+
+           
 
             return false;
         }
 
-        public static int SaisirLigneValide(GrilleMorpion morpion)
+
+        public static int SaisirLigneValide(int numLigne, int[,] grille)
         {
 
             do
             {
                 Console.Write("Veuillez saisir le numéro d'une ligne (1,2,3) : ");
-                morpion.numLigne = TestValiditeDuTypeDeLaSaisie();
+                numLigne = TestValiditeDuTypeDeLaSaisie();
                 Console.WriteLine();
-            } while (TestDimensionSaisie(morpion.numLigne) == false);
+            } while (TestDimensionSaisie(numLigne, grille) == false);
                 
-            return morpion.numLigne;
+            return numLigne;
         }
 
-        public static int SaisirColonneValide(GrilleMorpion morpion)
+        public static int SaisirColonneValide(int numColonne, int[,] grille)
         {
 
             do
             {
                 Console.Write("Veuillez saisir le numéro d'une colonne (1,2,3) : ");
-                morpion.numColonne = TestValiditeDuTypeDeLaSaisie();
+                numColonne = TestValiditeDuTypeDeLaSaisie();
                 Console.WriteLine();
-            } while (TestDimensionSaisie(morpion.numColonne) == false);
+            } while (TestDimensionSaisie(numColonne, grille) == false);
 
-            return morpion.numColonne;
+            return numColonne;
         }
         
 
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Bienvenue sur le jeu Tic Tac Toe !");
-            Console.WriteLine();
-
-            GrilleMorpion grille = new GrilleMorpion();
-            int joueur = 2;
-
-            bool etatPartie = true;
-         
-            while(etatPartie == true)
-            {
-
-                joueur = alterneJoueur(joueur);
-                Console.WriteLine("C'est au tour du joueur " + joueur + "!");
-                Console.WriteLine();
-                grille.AffichageGrille();
-                Console.WriteLine();
-
-                grille.numLigne = SaisirLigneValide(grille)-1;
-                grille.numColonne = SaisirColonneValide(grille)-1;
-
-                if (grille.CaseVide(grille.numLigne, grille.numColonne))
-                {
-                    grille.deposeJeton(grille.numLigne, grille.numColonne, joueur);
-                    Console.Clear();
-
-                } else
-                {
-                    joueur = alterneJoueur(joueur);
-                    Console.Clear();
-                    Console.WriteLine("La case est déjà prise !");
-                }
-
-
-                if (grille.VictoireJoueur(joueur))
-                {
-                    etatPartie = false;
-
-                }
-
-                if(grille.GrilleComplete())
-                {
-                    etatPartie = false;
-                }
-            }
-
-            if(grille.VictoireJoueur(joueur) == true)
-            {
-                grille.AffichageGrille();
-                Console.WriteLine();
-                Console.WriteLine("Victoire du joueur " + joueur);
-            } else if(grille.GrilleComplete() == true && grille.VictoireJoueur(joueur) == false)
-            {
-                grille.AffichageGrille();
-                Console.WriteLine();
-                Console.WriteLine("Personne a gagné !");
-            }
            
 
+            
+          
+
+            bool etatProgramme = true;
+
+
+            while (etatProgramme == true)
+            {
+                bool etatPartie = true;
+                int joueur = 2;
+
+                Console.WriteLine("Jouer au morpion : 1");
+                Console.WriteLine("Jouer à puissance4 : 2");
+                Console.WriteLine();
+                Console.WriteLine("N'importe quelle touche pour quitter !");
+
+                int num;
+                while (!int.TryParse(Console.ReadLine(), out num))
+                {
+                    Console.Write("Choisi ton jeu (1,2) :");
+
+                }
+
+                if (num == 1)
+                {
+                    Console.WriteLine("Bienvenue sur le jeu Tic Tac Toe !");
+                    Console.WriteLine();
+
+                    GrilleMorpion grilles = new GrilleMorpion();
+
+                    int[,] grille = grilles.grille;
+                    int numLigne = grilles.numLigne;
+                    int numColonne = grilles.numColonne;
+
+                    while (etatPartie == true)
+                    {
+
+                        joueur = alterneJoueur(joueur);
+                        Console.WriteLine("C'est au tour du joueur " + joueur + "!");
+                        Console.WriteLine();
+                        grilles.AffichageGrille();
+                        Console.WriteLine();
+
+                        grilles.numLigne = SaisirLigneValide(numLigne, grille) - 1;
+                        grilles.numColonne = SaisirColonneValide(numColonne, grille) - 1;
+
+                        if (grilles.CaseVide(grilles.numLigne, grilles.numColonne))
+                        {
+                            grilles.deposeJeton(grilles.numLigne, grilles.numColonne, joueur);
+                            Console.Clear();
+
+                        }
+                        else
+                        {
+                            joueur = alterneJoueur(joueur);
+                            Console.Clear();
+                            Console.WriteLine("La case est déjà prise !");
+                        }
+
+
+                        if (grilles.VictoireJoueur(joueur))
+                        {
+                            etatPartie = false;
+
+                        }
+
+                        if (grilles.GrilleComplete())
+                        {
+                            etatPartie = false;
+                        }
+                    }
+
+                    if (grilles.VictoireJoueur(joueur) == true)
+                    {
+                        grilles.AffichageGrille();
+                        Console.WriteLine();
+                        Console.WriteLine("Victoire du joueur " + joueur);
+                    }
+                    else if (grilles.GrilleComplete() == true && grilles.VictoireJoueur(joueur) == false)
+                    {
+                        grilles.AffichageGrille();
+                        Console.WriteLine();
+                        Console.WriteLine("Personne a gagné !");
+                    }
+
+
+                } else if(num == 2)
+                {
+                    Console.WriteLine("Bienvenue sur le jeu Puissance4 !");
+                    Console.WriteLine();
+
+                    GrillePuissance4 grilles = new GrillePuissance4();
+
+                    int[,] grille = grilles.grille;
+                    int numLigne = grilles.numLigne;
+                    int numColonne = grilles.numColonne;
+
+                    while (etatPartie == true)
+                    {
+
+                        joueur = alterneJoueur(joueur);
+                        Console.WriteLine("C'est au tour du joueur " + joueur + "!");
+                        Console.WriteLine();
+                        grilles.AffichageGrille();
+                        Console.WriteLine();
+
+                        grilles.numLigne = SaisirLigneValide(numLigne, grille) - 1;
+                        grilles.numColonne = SaisirColonneValide(numColonne, grille) - 1
+                        break;
+
+                    }
+                }
+            
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("Au revoir !");
+                    etatProgramme = false;
+                }
+
+                Console.WriteLine();
+            }
+            
         }
+
+
+
+          
 
        
     }

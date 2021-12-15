@@ -31,22 +31,38 @@ namespace AppTicTacToe{
             return num;
         }
 
+        static bool TestDimensionSaisie(int num)
+        {
+            if (num > 0 && num <=3 && num > 0 && num <=3) {
+                return true;
+            }
+
+            return false;
+        }
 
         public static int SaisirLigneValide( int numLigne)
         {
-          
+
+            do
+            {
                 Console.Write("Veuillez saisir le numéro d'une ligne (1,2,3) : ");
                 numLigne = TestValiditeDuTypeDeLaSaisie();
                 Console.WriteLine();
+            } while (TestDimensionSaisie(numLigne) == false);
+                
             return numLigne;
         }
 
         public static int SaisirColonneValide(int numColonne)
         {
 
-            Console.Write("Veuillez saisir le numéro d'une colonne (1,2,3) : ");
-            numColonne = TestValiditeDuTypeDeLaSaisie();
-            Console.WriteLine();
+            do
+            {
+                Console.Write("Veuillez saisir le numéro d'une colonne (1,2,3) : ");
+                numColonne = TestValiditeDuTypeDeLaSaisie();
+                Console.WriteLine();
+            } while (TestDimensionSaisie(numColonne) == false);
+
             return numColonne;
         }
         

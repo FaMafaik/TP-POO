@@ -9,8 +9,9 @@ namespace AppTicTacToe
     public class GrilleMorpion
     {
 
-        public static int[,] grille = new int[3, 3];
-    
+        public int[,] grille = new int[3, 3];
+        public int numLigne;
+        public int numColonne;
 
 
         public bool CaseVide(int numLigne, int numColonne)

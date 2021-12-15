@@ -40,30 +40,30 @@ namespace AppTicTacToe{
             return false;
         }
 
-        public static int SaisirLigneValide( int numLigne)
+        public static int SaisirLigneValide(GrilleMorpion morpion)
         {
 
             do
             {
                 Console.Write("Veuillez saisir le numéro d'une ligne (1,2,3) : ");
-                numLigne = TestValiditeDuTypeDeLaSaisie();
+                morpion.numLigne = TestValiditeDuTypeDeLaSaisie();
                 Console.WriteLine();
-            } while (TestDimensionSaisie(numLigne) == false);
+            } while (TestDimensionSaisie(morpion.numLigne) == false);
                 
-            return numLigne;
+            return morpion.numLigne;
         }
 
-        public static int SaisirColonneValide(int numColonne)
+        public static int SaisirColonneValide(GrilleMorpion morpion)
         {
 
             do
             {
                 Console.Write("Veuillez saisir le numéro d'une colonne (1,2,3) : ");
-                numColonne = TestValiditeDuTypeDeLaSaisie();
+                morpion.numColonne = TestValiditeDuTypeDeLaSaisie();
                 Console.WriteLine();
-            } while (TestDimensionSaisie(numColonne) == false);
+            } while (TestDimensionSaisie(morpion.numColonne) == false);
 
-            return numColonne;
+            return morpion.numColonne;
         }
         
 
@@ -75,8 +75,6 @@ namespace AppTicTacToe{
 
             GrilleMorpion grille = new GrilleMorpion();
             int joueur = 2;
-            int numLigne = 0;
-            int numColonne = 0;
 
             bool etatPartie = true;
          
@@ -89,12 +87,12 @@ namespace AppTicTacToe{
                 grille.AffichageGrille();
                 Console.WriteLine();
 
-                numLigne = SaisirLigneValide(numLigne)-1;
-                numColonne = SaisirColonneValide(numColonne)-1;
+                grille.numLigne = SaisirLigneValide(grille)-1;
+                grille.numColonne = SaisirColonneValide(grille)-1;
 
-                if (grille.CaseVide(numLigne, numColonne))
+                if (grille.CaseVide(grille.numLigne, grille.numColonne))
                 {
-                    grille.deposeJeton(numLigne, numColonne, joueur);
+                    grille.deposeJeton(grille.numLigne, grille.numColonne, joueur);
                     Console.Clear();
 
                 } else

@@ -195,6 +195,7 @@ namespace AppTicTacToe{
                     GrillePuissance4 grilles = new GrillePuissance4();
 
                     int[,] grille = grilles.grille;
+
                     int numColonne = grilles.numColonne;
 
                     while (etatPartie == true)
@@ -206,8 +207,22 @@ namespace AppTicTacToe{
                         grilles.AffichageGrille();
                         Console.WriteLine();
                         numColonne = SaisirColonneValidePuissance4(numColonne, grille) - 1;
-                        grilles.DeposeJeton(numColonne, joueur);
-                        Console.Clear();
+
+                        if(grilles.ColonneVide(numColonne))
+                        {
+                            grilles.DeposeJeton(numColonne, joueur);
+                            Console.Clear();
+
+                        }
+                        else
+                        {
+                            joueur = alterneJoueur(joueur);
+                            Console.Clear();
+                            Console.WriteLine("La colonne est complète !");
+                           
+                           
+                        }
+
 
                         if (grilles.VictoireJoueur(joueur))
                         {
@@ -228,14 +243,14 @@ namespace AppTicTacToe{
                         grilles.AffichageGrille();
                         Console.WriteLine();
                         Console.WriteLine("Victoire du joueur " + joueur);
-                        Console.WriteLine("________________________________");
+                        Console.WriteLine("________________________________ Fin du jeu");
                     }
                     else if (grilles.GrilleComplete() == true && grilles.VictoireJoueur(joueur) == false)
                     {
                         grilles.AffichageGrille();
                         Console.WriteLine();
                         Console.WriteLine("Personne a gagné !");
-                        Console.WriteLine("________________________________");
+                        Console.WriteLine("________________________________ Fin du jeu");
                     }
                 }
 

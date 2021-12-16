@@ -12,8 +12,7 @@ namespace AppTicTacToe
         public int numLigne;
         public int numColonne;
         public int nbJetonsVictoire = 4;
-
-
+    
         public bool CaseVide(int numLigne, int numColonne)
         {
 
@@ -45,25 +44,43 @@ namespace AppTicTacToe
             return true;
         }
 
+        public bool ColonneVide(int numColonne)
+        {
+            bool colonneVide = false;
+            int positionLigne = grille.GetLength(0) - 1;
+
+            while(positionLigne >= 0 && !colonneVide)
+            {
+                if(CaseVide(positionLigne, numColonne))
+                {
+                    colonneVide = true;
+                }
+                --positionLigne;
+            }
+
+
+            return colonneVide;
+        }
+
         public bool DeposeJeton(int numColonne, int numJoueur)
         {
             bool deposeJeton = false;
-            int i = grille.GetLength(0)-1;
-            
+            int i = grille.GetLength(0) - 1;
 
-            while (i>= 0 && !deposeJeton)
+
+            while (i >= 0 && !deposeJeton)
             {
-                if(CaseVide(i,numColonne))
+                if (CaseVide(i, numColonne))
                 {
                     grille[i, numColonne] = numJoueur;
                     numLigne = i;
-                    deposeJeton =true;
+                    deposeJeton = true;
                 }
 
                 --i;
             }
 
-            
+
 
             return deposeJeton;
         }

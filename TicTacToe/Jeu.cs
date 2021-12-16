@@ -37,11 +37,31 @@ namespace AppTicTacToe{
                 return true;
             }
 
-           
+            return false;
+        }
+
+        public static bool TestDimensionSaisiePuissance4(int num, int[,] grille)
+        {
+            if (num > 0 && num <= grille.GetLength(1))
+            {
+                return true;
+            }
 
             return false;
         }
 
+        public static int SaisirColonneValidePuissance4(int numColonne, int[,] grille)
+        {
+
+            do
+            {
+                Console.Write("Veuillez saisir le numéro d'une colonne (1,2,3,4,5,6,7) : ");
+                numColonne = TestValiditeDuTypeDeLaSaisie();
+                Console.WriteLine();
+            } while (TestDimensionSaisiePuissance4(numColonne, grille) == false);
+
+            return numColonne;
+        }
 
         public static int SaisirLigneValide(int numLigne, int[,] grille)
         {
@@ -68,7 +88,6 @@ namespace AppTicTacToe{
 
             return numColonne;
         }
-        
 
 
         static void Main(string[] args)
@@ -85,13 +104,16 @@ namespace AppTicTacToe{
             {
                 bool etatPartie = true;
                 int joueur = 2;
+                int num;
 
                 Console.WriteLine("Jouer au morpion : 1");
                 Console.WriteLine("Jouer à puissance4 : 2");
                 Console.WriteLine();
                 Console.WriteLine("N'importe quelle touche pour quitter !");
+                Console.WriteLine();
+                Console.Write("Choisi ton jeu (1,2) :");
 
-                int num;
+                
                 while (!int.TryParse(Console.ReadLine(), out num))
                 {
                     Console.Write("Choisi ton jeu (1,2) :");
@@ -100,6 +122,7 @@ namespace AppTicTacToe{
 
                 if (num == 1)
                 {
+                    Console.Clear();
                     Console.WriteLine("Bienvenue sur le jeu Tic Tac Toe !");
                     Console.WriteLine();
 
@@ -118,12 +141,12 @@ namespace AppTicTacToe{
                         grilles.AffichageGrille();
                         Console.WriteLine();
 
-                        grilles.numLigne = SaisirLigneValide(numLigne, grille) - 1;
-                        grilles.numColonne = SaisirColonneValide(numColonne, grille) - 1;
+                        numLigne = SaisirLigneValide(numLigne, grille) - 1;
+                        numColonne = SaisirColonneValide(numColonne, grille) - 1;
 
-                        if (grilles.CaseVide(grilles.numLigne, grilles.numColonne))
+                        if (grilles.CaseVide(numLigne, numColonne))
                         {
-                            grilles.deposeJeton(grilles.numLigne, grilles.numColonne, joueur);
+                            grilles.DeposeJeton(numLigne, numColonne, joueur);
                             Console.Clear();
 
                         }
@@ -152,24 +175,26 @@ namespace AppTicTacToe{
                         grilles.AffichageGrille();
                         Console.WriteLine();
                         Console.WriteLine("Victoire du joueur " + joueur);
+                        Console.WriteLine("________________________________________________________________");
                     }
                     else if (grilles.GrilleComplete() == true && grilles.VictoireJoueur(joueur) == false)
                     {
                         grilles.AffichageGrille();
                         Console.WriteLine();
                         Console.WriteLine("Personne a gagné !");
+                        Console.WriteLine("________________________________________________________________");
                     }
 
 
                 } else if(num == 2)
                 {
+                    Console.Clear();
                     Console.WriteLine("Bienvenue sur le jeu Puissance4 !");
                     Console.WriteLine();
 
                     GrillePuissance4 grilles = new GrillePuissance4();
 
                     int[,] grille = grilles.grille;
-                    int numLigne = grilles.numLigne;
                     int numColonne = grilles.numColonne;
 
                     while (etatPartie == true)
@@ -180,13 +205,41 @@ namespace AppTicTacToe{
                         Console.WriteLine();
                         grilles.AffichageGrille();
                         Console.WriteLine();
+                        numColonne = SaisirColonneValidePuissance4(numColonne, grille) - 1;
+                        grilles.DeposeJeton(numColonne, joueur);
+                        Console.Clear();
 
-                        grilles.numLigne = SaisirLigneValide(numLigne, grille) - 1;
-                        grilles.numColonne = SaisirColonneValide(numColonne, grille) - 1
-                        break;
+                        if (grilles.VictoireJoueur(joueur))
+                        {
+                            etatPartie = false;
+
+                        }
+
+                        if (grilles.GrilleComplete())
+                        {
+                            etatPartie = false;
+                        }
 
                     }
+
+
+                    if (grilles.VictoireJoueur(joueur) == true)
+                    {
+                        grilles.AffichageGrille();
+                        Console.WriteLine();
+                        Console.WriteLine("Victoire du joueur " + joueur);
+                        Console.WriteLine("________________________________");
+                    }
+                    else if (grilles.GrilleComplete() == true && grilles.VictoireJoueur(joueur) == false)
+                    {
+                        grilles.AffichageGrille();
+                        Console.WriteLine();
+                        Console.WriteLine("Personne a gagné !");
+                        Console.WriteLine("________________________________");
+                    }
                 }
+
+
             
                 else
                 {

@@ -11,69 +11,119 @@ namespace AppTicTacToe
         public int[,] grille = new int[4, 7];
         public int numLigne;
         public int numColonne;
+        public int nbJetonsVictoire = 4;
 
-        public bool ligneComplete(int numJoueur)
+
+        public bool CaseVide(int numLigne, int numColonne)
         {
-            if (grille[0, 0] == numJoueur && grille[1, 0] == numJoueur && grille[2, 0] == numJoueur)
-            {
-                return true;
-            }
-            else if (grille[0, 1] == numJoueur && grille[1, 1] == numJoueur && grille[2, 1] == numJoueur)
-            {
-                return true;
-            }
-            else if (grille[0, 2] == numJoueur && grille[1, 2] == numJoueur && grille[2, 2] == numJoueur)
-            {
-                return true;
-            }
 
+            if (grille[numLigne, numColonne] == 0)
+            {
+                return true;
+            }
             else
             {
                 return false;
             }
+
         }
 
-        public bool colonneComplete(int numJoueur)
+
+        public bool GrilleComplete()
         {
-
-            if (grille[0, 0] == numJoueur && grille[0, 1] == numJoueur && grille[0, 2] == numJoueur)
+            for (int i = 0; i < grille.GetLength(0); i++)
             {
-                return true;
-            }
-            else if (grille[1, 0] == numJoueur && grille[1, 1] == numJoueur && grille[1, 2] == numJoueur)
-            {
-                return true;
-            }
-            else if (grille[2, 0] == numJoueur && grille[2, 1] == numJoueur && grille[2, 2] == numJoueur)
-            {
-                return true;
+                for (int j = 0; j < grille.GetLength(1); j++)
+                {
+                    if (CaseVide(i, j))
+                    {
+                        return false;
+                    }
+                }
             }
 
-            else
-            {
-                return false;
-            }
+            return true;
         }
 
-        public bool diagonaleComplete(int numJoueur)
+        public bool DeposeJeton(int numColonne, int numJoueur)
         {
-            if (grille[0, 0] == numJoueur && grille[1, 1] == numJoueur && grille[2, 2] == numJoueur)
+            bool deposeJeton = false;
+            int i = grille.GetLength(0)-1;
+            
+
+            while (i>= 0 && !deposeJeton)
             {
-                return true;
+                if(CaseVide(i,numColonne))
+                {
+                    grille[i, numColonne] = numJoueur;
+                    numLigne = i;
+                    deposeJeton =true;
+                }
+
+                --i;
             }
-            else if (grille[0, 2] == numJoueur && grille[1, 1] == numJoueur && grille[2, 0] == numJoueur)
+
+            
+
+            return deposeJeton;
+        }
+
+        public bool LigneComplete(int numJoueur)
+        {
+            bool testLigne = false;
+            int compteurJetons = 0;
+    
+           
+                for (int j = 0; j < grille.GetLength(1); j++)
+                {
+                    if (grille[numLigne, j] == numJoueur)
+                    {
+                        compteurJetons++;
+                    } else 
+                    {
+                        compteurJetons = 0;
+                    }
+
+                 
+                    if (compteurJetons == nbJetonsVictoire)
+                    {
+                        testLigne = true;
+                    }
+                }
+                
+            return testLigne;
+        }
+
+        public bool ColonneComplete(int numJoueur)
+        {
+            bool testLigne = false;
+            int compteurJetons = 0;
+
+
+            for (int j = 0; j < grille.GetLength(0); j++)
             {
-                return true;
+                if (grille[j, numColonne] == numJoueur)
+                {
+                    compteurJetons++;
+                }
+                else
+                {
+                    compteurJetons = 0;
+                }
+
+
+                if (compteurJetons == nbJetonsVictoire)
+                {
+                    testLigne = true;
+                }
             }
-            else
-            {
-                return false;
-            }
+
+            return testLigne;
         }
 
         public bool VictoireJoueur(int numJoueur)
         {
-            if (ligneComplete(numJoueur) || colonneComplete(numJoueur) || diagonaleComplete(numJoueur))
+            if (LigneComplete(numJoueur) || ColonneComplete(numJoueur))
             {
                 return true;
             }
@@ -82,6 +132,7 @@ namespace AppTicTacToe
                 return false;
             }
         }
+
 
         public void AffichageGrille()
         {
